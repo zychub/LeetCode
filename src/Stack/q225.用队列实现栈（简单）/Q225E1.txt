@@ -1,0 +1,49 @@
+// DATE: 13th May, 2020
+
+#include <queue>
+
+class MyStack {
+private:
+    queue<int> InnerQueue;
+public:
+    /** Initialize your data structure here. */
+    MyStack() {}
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        InnerQueue.push(x);
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int i = InnerQueue.size() - 1;
+        int ans;
+        while(i != 0){
+            InnerQueue.push(InnerQueue.front());
+            InnerQueue.pop();
+            i --;
+        }
+        ans = InnerQueue.front();
+        InnerQueue.pop();
+        return ans;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return InnerQueue.back();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return InnerQueue.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
