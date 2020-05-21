@@ -1,0 +1,46 @@
+// DATE: 20th May, 2020
+#include <string>
+#include <stack>
+
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        int n = preorder.length();
+        int i = 0;
+        bool flag = true; // true means left branch; false means right branch
+        stack<bool> stk;
+        
+        for(i = 0; i < n; i++){
+            if(preorder[i] != '#'){
+                while(preorder[i] != ',' && i < n){
+                    i++;
+                }
+                stk.push(flag);
+                if(flag == false){
+                    flag = true;
+                }
+            }else{
+                while(preorder[i] != ',' && i < n){
+                    i++;
+                }
+                if(flag){
+                    if(stk.size() == 0){
+                        break;
+                    }else{
+                        flag = false;
+                    }
+                }else{
+                    while(stk.top() == false){
+                        stk.pop();
+                    }
+                    if(stk.size() == 1){
+                        break;
+                    }else{
+                        stk.pop();
+                    }
+                }
+            }
+        }
+        return (i == n);
+    }
+};
